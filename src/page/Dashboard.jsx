@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { BookCheck, Clock, XCircle, FileText, Download, Search } from "lucide-react";
+import {
+  BookCheck,
+  Clock,
+  XCircle,
+  FileText,
+  Download,
+  Search,
+} from "lucide-react";
 import { mockApplications } from "../repodummydata/mockApplication";
 import Statcard from "../components/dashboard/statcard";
 const ResumeList = () => {
