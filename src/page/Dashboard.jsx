@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   BookCheck,
   Clock,
@@ -9,6 +9,8 @@ import {
 } from "lucide-react";
 import { mockApplications } from "../repodummydata/mockApplication";
 import Statcard from "../components/dashboard/statcard";
+import { useParams } from "react-router-dom";
+import axiosinstance from "../utils/axios";
 const ResumeList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const filteredResumes = mockApplications.resumes.filter((resume) =>
@@ -17,6 +19,7 @@ const ResumeList = () => {
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6 mt-6">
+      dfaskdfngasnrtjgwnrun
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-xl font-semibold">My Resumes</h2>
         <div className="relative">
@@ -32,7 +35,6 @@ const ResumeList = () => {
           />
         </div>
       </div>
-
       <div className="divide-y">
         {filteredResumes.map((resume) => (
           <div
@@ -57,6 +59,37 @@ const ResumeList = () => {
 };
 
 function Dashboard() {
+  const { studentid } = useParams();
+  const { id } = useParams();
+  const [student, setStudent] = useState(null);
+  const [activeTab, setActiveTab] = useState("profile");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  console.log(studentid);
+  console.log("Dashboard rendering with studentId:", studentid);
+  console.log("Mock applications data:", mockApplications);
+  useEffect(() => {
+    const fetchStudent = async () => {
+      try {
+        const response = await axiosinstance.get(
+          `/api/v1/student/profile/${studentid}`
+        );
+        setStudent(response.data.data);
+        console.log(response.data.data);
+      } catch (error) {
+        console.error(error);
+        setError(
+          error.response?.data?.message || "Failed to fetch student data"
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchStudent();
+  }, [studentid]);
+
   return (
     <div className="p-6 max-w-7xl mx-auto">
       <h1 className="text-2xl font-bold mb-6">Dashboard</h1>

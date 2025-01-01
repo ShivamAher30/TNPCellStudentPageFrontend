@@ -13,7 +13,7 @@ const Login = () => {
       return;
     }
     // Temporary navigation with student ID
-    navigate(`/student-dashboard/${studentId}`);
+    navigate(`/profile/${studentId}`);
   };
 
   return (

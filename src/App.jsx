@@ -12,18 +12,17 @@ import Signup from "./page/Signup";
 function App() {
   return (
     <Router>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route element={<Layout />}>
-            <Route path="/dashboard/:studentid" element={<Dashboard />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/jobs" element={<Job />} />
-            {/* <Route path="/events" element={<Events />} /> */}
-            {/* <Route path="/resume" element={<Resume />} /> */}
-            <Route path="/" element={<Dashboard />} />
-          </Route>
-        </Routes>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route element={<Layout />}>
+          <Route path="/dashboard/:studentid" element={<Dashboard />} />
+          <Route path="/profile/:studentid" element={<Profile />} />
+          <Route path="/jobs" element={<Job />} />
+          {/* <Route path="/events" element={<Events />} /> */}
+          {/* <Route path="/resume" element={<Resume />} /> */}
+        </Route>
+      </Routes>
     </Router>
   );
 }
