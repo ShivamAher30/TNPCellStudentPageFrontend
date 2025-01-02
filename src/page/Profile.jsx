@@ -20,7 +20,7 @@ import axiosinstance from "../utils/axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { studentidContext } from "../context/StudentidProvider";
-
+import Student from "../../../Backend/src/schema/student/studentSchema";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -76,8 +76,6 @@ const Profile = () => {
       link: "https://github.com/sample",
     },
   ];
-
-  const dummySkills = ["JavaScript", "React", "Node.js", "MongoDB"];
 
   const {
     name,
@@ -257,7 +255,7 @@ const Profile = () => {
             </div>
           </div>
           <div className="flex flex-wrap gap-3">
-            {skills.map((skill, index) => (
+            {student?.skills?.map((skill, index) => (
               <span
                 key={index}
                 className="px-4 py-2 bg-gradient-to-r from-purple-50 to-purple-100 text-purple-600 rounded-full text-sm font-medium hover:shadow-md transition-all duration-300"
@@ -390,7 +388,7 @@ const Profile = () => {
             </div>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
-            {projects.map((project, index) => (
+            {student?.projects?.map((project, index) => (
               <div
                 key={index}
                 className="p-6 rounded-xl bg-gradient-to-r from-indigo-50 to-indigo-100 hover:shadow-lg transition-all duration-300"
