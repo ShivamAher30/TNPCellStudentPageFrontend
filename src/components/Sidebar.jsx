@@ -150,7 +150,7 @@ import {studentidContext} from "../context/StudentidProvider";
 const Sidebar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
-  const {studentId} =  localStorage.getItem('studentId');
+  const studentId =  localStorage.getItem('studentId');
   const onLogout = () => {
     localStorage.removeItem('studentId');
     localStorage.removeItem('studentData');
@@ -167,6 +167,9 @@ const Sidebar = () => {
 
   const NavItem = ({ item }) => {
     const isActive = location.pathname === item.path;
+    if(item.name === 'Profile') {
+      console.log('Profile' , studentId);
+    }
     return (
       <Link
         to={item.path}
