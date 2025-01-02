@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from "react";
 import dummyData from "../repodummydata/profile";
 import {
   User,
@@ -12,26 +12,32 @@ import {
   Globe,
   Linkedin,
   CheckCircle2,
+  Pencil,
 } from "lucide-react";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import axiosinstance from "../utils/axios";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { studentidContext } from "../context/StudentidProvider";
+
 
 const Profile = () => {
+  const navigate = useNavigate();
+
   const studentData = {
     personalInfo: {
       name: "jam",
       department: "ECE",
       batch: 2000,
       rollNumber: 1234567890123,
-      isLocked: false
+      isLocked: false,
     },
     academics: {
       cgpa: 3,
       tenthMarks: 98,
       twelfthMarks: 89,
-      isLocked: false
+      isLocked: false,
     },
     education: [],
     experience: [],
@@ -39,7 +45,7 @@ const Profile = () => {
     skills: [],
     verificationStatus: "pending",
     createdAt: "2025-01-01T08:12:59.005Z",
-    updatedAt: "2025-01-01T08:12:59.005Z"
+    updatedAt: "2025-01-01T08:12:59.005Z",
   };
 
   // Dummy data for sections not in object
@@ -49,8 +55,8 @@ const Profile = () => {
       degree: "B.Tech",
       field: "Electronics and Communication",
       year: "2020-2024",
-      grade: "8.5"
-    }
+      grade: "8.5",
+    },
   ];
 
   const dummyExperience = [
@@ -58,8 +64,8 @@ const Profile = () => {
       company: "Tech Corp",
       role: "Software Engineer Intern",
       duration: "3 months",
-      description: "Worked on frontend development"
-    }
+      description: "Worked on frontend development",
+    },
   ];
 
   const dummyProjects = [
@@ -67,8 +73,8 @@ const Profile = () => {
       title: "Student Portal",
       description: "Web application for student management",
       technologies: ["React", "Node.js", "MongoDB"],
-      link: "https://github.com/sample"
-    }
+      link: "https://github.com/sample",
+    },
   ];
 
   const dummySkills = ["JavaScript", "React", "Node.js", "MongoDB"];
@@ -90,17 +96,30 @@ const Profile = () => {
   const { studentid } = useParams();
 
   const [student, setStudent] = useState(null);
+  const [cloneStudent, setCloneStudent] = useState(null);
   const [Error, setError] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
 
-
+  const { Studentid, setStudentId } = useContext(studentidContext);
 
   useEffect(() => {
+    // setStudentId(studentid) ;
+
+    // if (!Studentid) {
+    //   const localStorageStudentId = localStorage.getItem("Studentid");
+    //   if (localStorageStudentId) {
+    //     (localStorageStudentId);
+    //   } else {
+    //     navigate("/login");
+    //   }
+    // }
     const fetchStudent = async () => {
       try {
         const response = await axiosinstance.get(
           `/api/v1/student/profile/${studentid}`
         );
         setStudent(response.data.data);
+        setCloneStudent(response.data.data);
         console.log(response.data.data);
       } catch (error) {
         console.error(error);
@@ -171,13 +190,25 @@ const Profile = () => {
   return (
     <div className="max-w-6xl mx-auto p-8 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 min-h-screen">
       {/* Header Card */}
-      <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl shadow-xl p-8 mb-8 text-white">
+      <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl shadow-xl p-8 mb-8 text-white relative">
+        <button
+          onClick={() => {
+            setIsEditing(!isEditing);
+            navigate(`/edit-profile/${studentid}`);
+          }}
+          className="absolute top-4 right-4 p-2 bg-white/20 hover:bg-white/30 rounded-full backdrop-blur-sm transition-all duration-300"
+          title="Edit Profile"
+        >
+          <Pencil className="w-5 h-5 text-white" />
+        </button>
         <div className="flex items-center gap-8 mb-6">
           <div className="w-32 h-32 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-2xl ring-4 ring-white/30">
             <User className="w-16 h-16 text-white" />
           </div>
           <div>
-            <h1 className="text-5xl font-bold mb-3 text-white">{student?.personalInfo?.name}</h1>
+            <h1 className="text-5xl font-bold mb-3 text-white">
+              {student?.personalInfo?.name}
+            </h1>
             <div className="flex items-center gap-3">
               <span className="px-4 py-1.5 bg-white/20 backdrop-blur-sm text-white rounded-full text-sm font-medium">
                 Student

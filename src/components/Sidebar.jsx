@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
   Layout, 
@@ -9,14 +9,15 @@ import {
   Menu,
   X
 } from 'lucide-react';
-
+import {studentidContext} from "../context/StudentidProvider";
 const Sidebar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const {studentId} = useContext(studentidContext) ; 
 
   const navigation = [
     { name: 'Dashboard', icon: Layout, path: '/dashboard' },
-    { name: 'Profile', icon: User, path: '/profile' },
+    { name: 'Profile', icon: User, path: `/profile/${studentId}` },
     { name: 'Jobs', icon: Briefcase, path: '/jobs' },
     { name: 'Event Scheduler', icon: Calendar, path: '/events' },
     { name: 'Resume Builder', icon: FileText, path: '/resume' },

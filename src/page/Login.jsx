@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { studentidContext } from "../context/StudentidProvider";
 const Login = () => {
-  const [studentId, setStudentId] = useState("");
+  const { studentId, setStudentId } = useContext(studentidContext);
+
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -12,6 +13,8 @@ const Login = () => {
       setError("Please enter a student ID");
       return;
     }
+    setStudentId(studentId);
+    localStorage.setItem("studentId", studentId);
     // Temporary navigation with student ID
     navigate(`/profile/${studentId}`);
   };
@@ -29,7 +32,10 @@ const Login = () => {
         </div>
 
         {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded relative" role="alert">
+          <div
+            className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded relative"
+            role="alert"
+          >
             <span className="block sm:inline">{error}</span>
             <button
               className="absolute top-0 bottom-0 right-0 px-4 py-3"

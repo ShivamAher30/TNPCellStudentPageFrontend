@@ -8,21 +8,25 @@ import Job from "./page/Job";
 // import Resume from './page/Resume';
 import Login from "./page/Login";
 import Signup from "./page/Signup";
-
+import StudentidProvider from "./context/StudentidProvider";
+import EditProfile from "./page/EditProfile";
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route element={<Layout />}>
-          <Route path="/dashboard/:studentid" element={<Dashboard />} />
-          <Route path="/profile/:studentid" element={<Profile />} />
-          <Route path="/jobs" element={<Job />} />
-          {/* <Route path="/events" element={<Events />} /> */}
-          {/* <Route path="/resume" element={<Resume />} /> */}
-        </Route>
-      </Routes>
+      <StudentidProvider>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route element={<Layout />}>
+            <Route path="/dashboard/" element={<Dashboard />} />
+            <Route path="/edit-profile/:studentid" element={<EditProfile />} />
+            <Route path="/profile/:studentid" element={<Profile />} />
+            <Route path="/jobs" element={<Job />} />
+            {/* <Route path="/events" element={<Events />} /> */}
+            {/* <Route path="/resume" element={<Resume />} /> */}
+          </Route>
+        </Routes>
+      </StudentidProvider>
     </Router>
   );
 }
