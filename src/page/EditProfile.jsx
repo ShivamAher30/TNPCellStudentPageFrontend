@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext , useEffect } from "react";
 import {
   User,
   Mail,
@@ -16,7 +16,7 @@ import { studentidContext } from "../context/StudentidProvider";
 import { Navigate, useNavigate } from "react-router-dom";
 
 const EditableProfileForm = ({ CloneStudent, setCloneStudnet }) => {
-  const { studentId } = useContext(studentidContext);
+  const { studentId, Studentdata } = useContext(studentidContext);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -114,6 +114,14 @@ const EditableProfileForm = ({ CloneStudent, setCloneStudnet }) => {
     }
   };
 
+  useEffect(() => {
+    setFormData({
+      ...formData,
+      projects: [...Studentdata.projects, ,],
+      skills: [...Studentdata.skills],
+    });
+  }, []);
+
   return (
     <form
       className="max-w-6xl mx-auto p-8 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 min-h-screen"
@@ -122,7 +130,6 @@ const EditableProfileForm = ({ CloneStudent, setCloneStudnet }) => {
         onSubmit();
       }}
     >
-     
       {/* Add other fields like department, email, phone, etc. */}
       {/* Skills */}
       <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">

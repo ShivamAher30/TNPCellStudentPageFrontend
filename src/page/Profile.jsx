@@ -20,7 +20,6 @@ import axiosinstance from "../utils/axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { studentidContext } from "../context/StudentidProvider";
-import Student from "../../../Backend/src/schema/student/studentSchema";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -98,19 +97,11 @@ const Profile = () => {
   const [Error, setError] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
 
-  const { Studentid, setStudentId } = useContext(studentidContext);
+  const { Studentid, setStudentId, Studentdata, setStudentdata } =
+    useContext(studentidContext);
 
   useEffect(() => {
-    // setStudentId(studentid) ;
-
-    // if (!Studentid) {
-    //   const localStorageStudentId = localStorage.getItem("Studentid");
-    //   if (localStorageStudentId) {
-    //     (localStorageStudentId);
-    //   } else {
-    //     navigate("/login");
-    //   }
-    // }
+  
     const fetchStudent = async () => {
       try {
         const response = await axiosinstance.get(
@@ -118,6 +109,7 @@ const Profile = () => {
         );
         setStudent(response.data.data);
         setCloneStudent(response.data.data);
+        setStudentdata(response.data.data);
         console.log(response.data.data);
       } catch (error) {
         console.error(error);
