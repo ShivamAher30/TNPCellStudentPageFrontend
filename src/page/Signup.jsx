@@ -53,23 +53,29 @@ const Signup = () => {
         personalInfo: formData.personalInfo,
         academics: formData.academics,
       });
-      
+
       if (response.data.statusCode === 201) {
-        navigate(`/dashboard/${response.data.data.student._id}`);
+
+        navigate(`/profile/${response.data.data.student._id}`);
       }
     } catch (err) {
       console.error("Registration error:", err);
       if (err.response?.status === 409) {
         // Handle specific conflict errors
-        if (err.response.data.message.includes('email')) {
+        if (err.response.data.message.includes("email")) {
           setError("Email already registered. Please use a different email.");
-        } else if (err.response.data.message.includes('rollNumber')) {
-          setError("Roll number already registered. Please check your details.");
+        } else if (err.response.data.message.includes("rollNumber")) {
+          setError(
+            "Roll number already registered. Please check your details."
+          );
         } else {
           setError("A user with these details already exists.");
         }
       } else {
-        setError(err.response?.data?.message || "Registration failed. Please try again.");
+        setError(
+          err.response?.data?.message ||
+            "Registration failed. Please try again."
+        );
       }
     } finally {
       setLoading(false);
