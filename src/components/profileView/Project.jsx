@@ -34,7 +34,9 @@ function Project({student}) {
                   </a>
                 )}
               </div>
-              <p className="text-gray-600 mb-4">{project.description}</p>
+              <p className="text-gray-600 mb-4 line-clamp-3 overflow-hidden text-ellipsis">
+                {project.description}
+              </p>
               {project.technologies && (
                 <div className="flex flex-wrap gap-2">
                   {project.technologies.map((tech, i) => (

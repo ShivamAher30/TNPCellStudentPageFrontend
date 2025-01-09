@@ -162,7 +162,7 @@ const Sidebar = () => {
     { name: 'Profile', icon: User, path: `/profile/${studentId}` },
     { name: 'Jobs', icon: Briefcase, path: '/jobs' },
     { name: 'Event Scheduler', icon: Calendar, path: '/events' },
-    { name: 'Resume Builder', icon: FileText, path: '/resume' },
+    { name: 'Resume Builder', icon: FileText, path: `/resume-builder/${studentId}` },
   ];
 
   const NavItem = ({ item }) => {

@@ -10,6 +10,7 @@ import Login from "./page/Login";
 import Signup from "./page/Signup";
 import StudentidProvider from "./context/StudentidProvider";
 import EditProfile from "./page/EditProfile";
+import ResumeBuilder from "./page/ResumeBuilder";
 function App() {
   return (
     <Router>
@@ -22,6 +23,7 @@ function App() {
             <Route path="/edit-profile/:studentid" element={<EditProfile />} />
             <Route path="/profile/:studentid" element={<Profile />} />
             <Route path="/jobs" element={<Job />} />
+            <Route path="/resume-builder/:studentid" element={<ResumeBuilder />} />
             {/* <Route path="/events" element={<Events />} /> */}
             {/* <Route path="/resume" element={<Resume />} /> */}
           </Route>

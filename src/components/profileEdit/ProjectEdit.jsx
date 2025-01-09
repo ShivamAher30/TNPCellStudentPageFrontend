@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { BookOpen, Link as LinkIcon, Code, FileText, PlusCircle, Trash2 } from 'lucide-react';
-
+import axiosinstance from '../../utils/axios';
 const ProjectEdit = ({ initialProjects = [] }) => {
+  const [isLoading, setIsLoading] = useState(false);
+    const [updateStatus, setUpdateStatus] = useState(null);
+  
   const [projects, setProjects] = useState(initialProjects.length ? initialProjects : [{
     title: '',
     description: '',
@@ -26,9 +29,23 @@ const ProjectEdit = ({ initialProjects = [] }) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log(projects);
+    setIsLoading(true);
+    setUpdateStatus(null);
+    const studentId = localStorage.getItem("studentId");
+
+    try {
+      await axiosinstance.put(`/api/v1/student/profile/${studentId}`, {
+        projects: projects,
+      });
+      setUpdateStatus('success');
+    } catch (error) {
+      console.log(error);
+      setUpdateStatus('error');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
