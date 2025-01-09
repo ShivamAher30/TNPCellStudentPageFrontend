@@ -35,7 +35,7 @@ function EditProfile({ student }) {
         cgpa={EditedData?.academics?.cgpa}
         setEditedData={setEditedData}
       />
-      {/*  Not Availabel inn backend Data*/}
+      {/*  Not Availabel in backend Data*/}
       <ContactInformation />
       <SocialLinksEdit />
       {/* Not Availabel inn backend Data */}
